@@ -24,11 +24,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #ifdef WIN32
 #include <windows.h>
 #else
 #include <unistd.h>
 #endif
+
 #include <string.h>
 #include "livox_sdk.h"
 
@@ -47,6 +49,7 @@ typedef struct {
 DeviceItem devices[kMaxLidarCount];
 
 #define BROADCAST_CODE_LIST_SIZE  1
+
 /** Connect all the broadcast device. */
 bool is_connect_all_broadcast_device = true;
 char broadcast_code_list[BROADCAST_CODE_LIST_SIZE][kBroadcastCodeSize];
@@ -75,7 +78,7 @@ void OnHubErrorStatusCallback(livox_status status, uint8_t handle, ErrorMessage*
 }
 
 /** Receiving point cloud data from Livox Hub. */
-void GetHubData(uint8_t handle, LivoxEthPacket* data, uint32_t data_num, void* client_data) {
+void OnGetHubData(uint8_t handle, LivoxEthPacket* data, uint32_t data_num, void* client_data) {
     static uint32_t receive_packet_count = 0;
     if (data) {
         ++receive_packet_count;
@@ -249,7 +252,7 @@ void OnDeviceBroadcast(const BroadcastDeviceInfo* info) {
     uint8_t handle = 0;
     result = AddHubToConnect(info->broadcast_code, &handle);
     if (result == kStatusSuccess && handle < kMaxLidarCount) {
-        SetDataCallback(handle, GetHubData, NULL);
+        SetDataCallback(handle, OnGetHubData, NULL);
         devices[handle].handle = handle;
         devices[handle].device_state = kDeviceStateDisconnect;
     }
