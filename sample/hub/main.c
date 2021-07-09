@@ -277,7 +277,7 @@ int main(int argc, const char* argv[]) {
     // which means connection/disconnection and changing of LiDAR state.
     SetDeviceStateUpdateCallback(OnDeviceInfoChange);
 
-    // Start the device discovering routine. */
+    // Start the device discovering routine
     if (Start()) {
         printf("Start discovering device.\n");
 
