@@ -27,8 +27,9 @@
 #include "data_handler/data_handler.h"
 #include "base/logging.h"
 #include "device_manager.h"
+
 #ifdef WIN32
-#include<winsock2.h>
+#include <winsock2.h>
 #endif // WIN32
 
 using namespace livox;
@@ -76,6 +77,7 @@ bool Init() {
       result = false;
       break;
     }
+
     if (data_handler().Init() == false) {
       result = false;
       break;
