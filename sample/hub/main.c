@@ -101,6 +101,8 @@ void OnGetHubData(uint8_t handle, LivoxEthPacket* data, uint32_t data_num, void*
                 LivoxDualExtendSpherPoint* p_point_data = (LivoxDualExtendSpherPoint*)data->data;
             } else if (data->data_type == kImu) {
                 LivoxImuPoint* p_point_data = (LivoxImuPoint*)data->data;
+                printf("IMU - gyro x y z = %f %f %f\n", p_point_data->gyro_x, p_point_data->gyro_y, p_point_data->gyro_z);
+                printf("IMU - acc x y z = %f %f %f\n", p_point_data->acc_x, p_point_data->acc_y, p_point_data->acc_z);
             } else if (data->data_type == kTripleExtendCartesian) {
                 LivoxTripleExtendRawPoint* p_point_data = (LivoxTripleExtendRawPoint*)data->data;
             } else if (data->data_type == kTripleExtendSpherical) {
